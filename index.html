@@ -919,7 +919,7 @@
       <p class="section-body" style="margin: 0 auto; text-align: center;">
         No es un formulario de registro. Es el primer paso de un proceso curado. Te contactamos en 24 horas.
       </p>
-      <form class="contact-form" name="solicitud-entrevista" action="https://formsubmit.co/axelabulafia@gmail.com" method="POST" onsubmit="handleSubmit(event)">
+      <form class="contact-form" name="solicitud-entrevista" action="https://formsubmit.co/axel.abulafia@meetvelo.co" method="POST" onsubmit="handleSubmit(event)">
         <!-- Configuración FormSubmit -->
         <input type="hidden" name="_subject" value="Nueva solicitud de entrevista — Velo" />
         <input type="hidden" name="_template" value="table" />
@@ -964,7 +964,7 @@
       const btn = form.querySelector('.btn-submit');
       btn.disabled = true;
       btn.textContent = 'Enviando…';
-      fetch('https://formsubmit.co/ajax/axelabulafia@gmail.com', {
+      fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form)))
