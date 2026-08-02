@@ -970,7 +970,7 @@
         <input type="email" name="email" placeholder="Email profesional" required />
         <input type="tel" name="telefono" placeholder="Número de teléfono" required />
         <input type="text" name="cargo-empresa" placeholder="Cargo y empresa" />
-        <select name="ciudad" required>
+        <select name="ciudad" id="ciudad-select" required>
           <option value="" disabled selected>Ciudad de residencia</option>
           <option>Buenos Aires</option>
           <option>Miami</option>
@@ -979,6 +979,7 @@
           <option>São Paulo</option>
           <option>Otra</option>
         </select>
+        <input type="text" name="ciudad_otra" id="ciudad-otra" placeholder="Escribí tu ciudad" style="display:none" />
         <button type="submit" class="btn-submit">Solicitar entrevista</button>
         <p class="form-note" style="text-align:center;">Confidencialidad garantizada · Sin compromisos · Respuesta en 24hs</p>
       </form>
@@ -994,16 +995,39 @@
   </footer>
 
   <script>
+    // Mostrar/ocultar el campo "Escribí tu ciudad" según la selección
+    const ciudadSelect = document.getElementById('ciudad-select');
+    const ciudadOtra = document.getElementById('ciudad-otra');
+    if (ciudadSelect && ciudadOtra) {
+      ciudadSelect.addEventListener('change', () => {
+        if (ciudadSelect.value === 'Otra') {
+          ciudadOtra.style.display = 'block';
+          ciudadOtra.required = true;
+          ciudadOtra.focus();
+        } else {
+          ciudadOtra.style.display = 'none';
+          ciudadOtra.required = false;
+          ciudadOtra.value = '';
+        }
+      });
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
       const btn = form.querySelector('.btn-submit');
       btn.disabled = true;
       btn.textContent = 'Enviando…';
+      const formData = new FormData(form);
+      // Si eligió "Otra", reemplazamos el valor de "ciudad" por lo que escribió
+      if (formData.get('ciudad') === 'Otra' && formData.get('ciudad_otra')) {
+        formData.set('ciudad', formData.get('ciudad_otra'));
+      }
+      formData.delete('ciudad_otra');
       fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        body: JSON.stringify(Object.fromEntries(formData))
       })
       .then(res => res.json())
       .then(() => {
