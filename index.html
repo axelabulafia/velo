@@ -963,15 +963,6 @@
         <input type="hidden" name="_autoresponse" value="Gracias por tu interés en Velo. Recibimos tu solicitud y te contactamos en un plazo de 24 horas. — Equipo Velo" />
         <!-- Honeypot anti-spam (debe quedar vacío) -->
         <input type="text" name="_honey" style="display:none" />
-        <!-- Atribución de origen (se completa automáticamente vía JS, ver script al final) -->
-        <input type="hidden" name="utm_source" id="utm_source" value="" />
-        <input type="hidden" name="utm_medium" id="utm_medium" value="" />
-        <input type="hidden" name="utm_campaign" id="utm_campaign" value="" />
-        <input type="hidden" name="utm_content" id="utm_content" value="" />
-        <input type="hidden" name="utm_term" id="utm_term" value="" />
-        <input type="hidden" name="click_id" id="click_id" value="" />
-        <input type="hidden" name="referrer_origen" id="referrer_origen" value="" />
-        <input type="hidden" name="landing_page" id="landing_page" value="" />
         <div class="form-row">
           <input type="text" name="nombre" placeholder="Nombre" required />
           <input type="text" name="apellido" placeholder="Apellido" required />
@@ -1004,52 +995,6 @@
   </footer>
 
   <script>
-    // ===== Atribución de origen (UTM + click IDs) =====
-    // Guarda el primer touch en localStorage y lo reutiliza si el visitante
-    // vuelve sin parámetros nuevos, así el lead queda atribuido a su fuente real
-    // (Instagram, LinkedIn, Google, etc.) incluso si tarda en completar el formulario.
-    (function trackAttribution() {
-      const params = new URLSearchParams(window.location.search);
-      let stored = null;
-      try { stored = JSON.parse(localStorage.getItem('velo_attribution') || 'null'); } catch (e) {}
-
-      const hasNewUtm = params.get('utm_source') || params.get('fbclid') || params.get('gclid');
-
-      let attribution = stored;
-      if (!stored || hasNewUtm) {
-        let inferredSource = params.get('utm_source') || '';
-        let inferredMedium = params.get('utm_medium') || '';
-        if (!inferredSource && document.referrer) {
-          const ref = document.referrer.toLowerCase();
-          if (ref.includes('instagram.com')) { inferredSource = 'instagram'; inferredMedium = 'social'; }
-          else if (ref.includes('linkedin.com') || ref.includes('lnkd.in')) { inferredSource = 'linkedin'; inferredMedium = 'social'; }
-          else if (ref.includes('facebook.com') || ref.includes('fb.com')) { inferredSource = 'facebook'; inferredMedium = 'social'; }
-          else if (ref.includes('google.')) { inferredSource = 'google'; inferredMedium = 'organic'; }
-          else {
-            try { inferredSource = new URL(document.referrer).hostname; inferredMedium = 'referral'; } catch (e) {}
-          }
-        }
-        if (!inferredSource) { inferredSource = '(direct)'; inferredMedium = '(none)'; }
-
-        attribution = {
-          utm_source: params.get('utm_source') || inferredSource,
-          utm_medium: params.get('utm_medium') || inferredMedium,
-          utm_campaign: params.get('utm_campaign') || '',
-          utm_content: params.get('utm_content') || '',
-          utm_term: params.get('utm_term') || '',
-          click_id: params.get('fbclid') || params.get('gclid') || '',
-          referrer_origen: document.referrer || '(direct)',
-          landing_page: window.location.pathname + window.location.search
-        };
-        try { localStorage.setItem('velo_attribution', JSON.stringify(attribution)); } catch (e) {}
-      }
-
-      Object.keys(attribution).forEach(key => {
-        const el = document.getElementById(key);
-        if (el) el.value = attribution[key] || '';
-      });
-    })();
-
     // Mostrar/ocultar el campo "Escribí tu ciudad" según la selección
     const ciudadSelect = document.getElementById('ciudad-select');
     const ciudadOtra = document.getElementById('ciudad-otra');
