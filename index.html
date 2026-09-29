@@ -309,13 +309,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
 
   </style>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YPSXYBVNQ4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YPSXYBVNQ4');
-  </script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -477,6 +470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="hidden" name="_subject" value="Nueva solicitud de entrevista de Velo" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://meetvelo.co/?enviado=1#contacto" />
         <input type="hidden" name="_autoresponse" value="Gracias por tu interés en Velo. Recibimos tu solicitud y te contactamos en un plazo de 24 horas. Equipo Velo" />
         <!-- Honeypot anti-spam (debe quedar vacío) -->
         <input type="text" name="_honey" style="display:none" />
@@ -559,8 +553,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(Object.fromEntries(formData))
       })
-      .then(res => res.json())
-      .then(() => {
+      .then(async res => {
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        // FormSubmit puede responder 200 con success:"false" (p. ej. formulario sin activar)
+        if (!res.ok || data.success === false || data.success === 'false') {
+          throw new Error(data.message || ('HTTP ' + res.status));
+        }
         btn.textContent = 'Solicitud enviada ✓';
         btn.style.background = '#2a5a2a';
         btn.style.color = '#a0d0a0';
@@ -569,16 +568,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (typeof fbq === 'function') {
           fbq('track', 'Lead');
         }
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', { form_name: 'solicitud-entrevista' });
-        }
-        // Evento para Google Tag Manager (disparador de conversión de Google Ads)
+        // Evento para Google Tag Manager (GA4 + conversión de Google Ads)
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'solicitud_entrevista_enviada', form_name: 'solicitud-entrevista' });
       })
-      .catch(() => {
-        btn.disabled = false;
-        btn.textContent = 'Error, reintentá';
+      .catch(err => {
+        console.error('Error al enviar el formulario (AJAX):', err);
+        // Plan B: envío tradicional a FormSubmit para no perder la solicitud
+        if (form.ciudad && formData.get('ciudad')) {
+          const sel = form.querySelector('select[name="ciudad"]');
+          if (sel && sel.value === 'Otra') {
+            const opt = document.createElement('option');
+            opt.value = formData.get('ciudad'); opt.textContent = opt.value;
+            sel.appendChild(opt); sel.value = opt.value;
+          }
+        }
+        btn.textContent = 'Enviando…';
+        HTMLFormElement.prototype.submit.call(form);
       });
     }
 
