@@ -465,7 +465,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="body-m" style="color:rgba(245,241,234,.75); max-width:44ch;">No es un formulario de registro. Es el primer paso de un proceso curado. Te contactamos en 24 horas.</p>
       </div>
 
-      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" action="https://formsubmit.co/axel.abulafia@meetvelo.co" method="POST" onsubmit="handleSubmit(event)">
+      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" action="https://formsubmit.co/axel.abulafia@meetvelo.co" method="POST" data-netlify="true" netlify-honeypot="_honey" onsubmit="handleSubmit(event)">
+        <!-- Netlify Forms (respaldo si FormSubmit falla) -->
+        <input type="hidden" name="form-name" value="solicitud-entrevista" />
+        <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud de entrevista - Velo" />
         <!-- Configuración FormSubmit -->
         <input type="hidden" name="_subject" value="Nueva solicitud de entrevista de Velo" />
         <input type="hidden" name="_template" value="table" />
@@ -547,12 +550,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         formData.set('ciudad', formData.get('ciudad_otra'));
       }
       formData.delete('ciudad_otra');
-      fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData))
+
+      const campos = ['nombre', 'apellido', 'email', 'telefono', 'cargo-empresa', 'ciudad'];
+
+      // 1) Envío principal: FormSubmit (mail con formato de tabla)
+      const enviarFormSubmit = () => {
+        const data = Object.fromEntries(formData);
+        delete data['form-name'];
+        delete data['subject'];
+        return fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(async res => {
+          let r = {};
+          try { r = await res.json(); } catch (_) {}
+          if (!res.ok || r.success === false || r.success === 'false') {
+            throw new Error(r.message || ('FormSubmit HTTP ' + res.status));
+          }
+        });
+      };
+
+      // 2) Respaldo: Netlify Forms (aviso de Netlify por mail)
+      const enviarNetlify = () => {
+        const params = new URLSearchParams();
+        params.append('form-name', 'solicitud-entrevista');
+        campos.forEach(c => params.append(c, formData.get(c) || ''));
+        params.append('subject', 'Nueva solicitud: ' + (formData.get('nombre') || '') + ' ' + (formData.get('apellido') || '') + ' (' + (formData.get('ciudad') || '') + ')');
+        return fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString()
+        }).then(res => {
+          if (!res.ok) throw new Error('Netlify HTTP ' + res.status);
+        });
+      };
+
+      enviarFormSubmit()
+      .catch(err => {
+        console.warn('FormSubmit falló, envío por Netlify:', err);
+        return enviarNetlify();
       })
-      .then(res => res.json())
       .then(() => {
         btn.textContent = 'Solicitud enviada ✓';
         btn.style.background = '#2a5a2a';
@@ -562,14 +600,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (typeof fbq === 'function') {
           fbq('track', 'Lead');
         }
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', { form_name: 'solicitud-entrevista' });
-        }
         // Evento para Google Tag Manager (disparador de conversión de Google Ads)
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'solicitud_entrevista_enviada', form_name: 'solicitud-entrevista' });
       })
-      .catch(() => {
+      .catch(err => {
+        console.error('No se pudo enviar el formulario:', err);
         btn.disabled = false;
         btn.textContent = 'Error, reintentá';
       });
