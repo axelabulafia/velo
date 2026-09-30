@@ -465,9 +465,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="body-m" style="color:rgba(245,241,234,.75); max-width:44ch;">No es un formulario de registro. Es el primer paso de un proceso curado. Te contactamos en 24 horas.</p>
       </div>
 
-      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" method="POST" data-netlify="true" netlify-honeypot="_honey" onsubmit="handleSubmit(event)">
-        <!-- Netlify Forms: identifica el formulario -->
-        <input type="hidden" name="form-name" value="solicitud-entrevista" />
+      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" action="https://formsubmit.co/axel.abulafia@meetvelo.co" method="POST" onsubmit="handleSubmit(event)">
+        <!-- Configuración FormSubmit -->
+        <input type="hidden" name="_subject" value="Nueva solicitud de entrevista de Velo" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_autoresponse" value="Gracias por tu interés en Velo. Recibimos tu solicitud y te contactamos en un plazo de 24 horas. Equipo Velo" />
         <!-- Honeypot anti-spam (debe quedar vacío) -->
         <input type="text" name="_honey" style="display:none" />
         <div class="form-row">
@@ -543,8 +546,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (formData.get('ciudad') === 'Otra' && formData.get('ciudad_otra')) {
         formData.set('ciudad', formData.get('ciudad_otra'));
       }
-
-      const ok = () => {
+      formData.delete('ciudad_otra');
+      fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData))
+      })
+      .then(res => res.json())
+      .then(() => {
         btn.textContent = 'Solicitud enviada ✓';
         btn.style.background = '#2a5a2a';
         btn.style.color = '#a0d0a0';
@@ -553,48 +562,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (typeof fbq === 'function') {
           fbq('track', 'Lead');
         }
-        // Evento para Google Tag Manager (GA4 + conversión de Google Ads)
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', { form_name: 'solicitud-entrevista' });
+        }
+        // Evento para Google Tag Manager (disparador de conversión de Google Ads)
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'solicitud_entrevista_enviada', form_name: 'solicitud-entrevista' });
-      };
-
-      // 1) Envío principal: Netlify Forms (mismo sitio, sin servicios externos)
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
       })
-      .then(res => {
-        if (!res.ok) throw new Error('Netlify HTTP ' + res.status);
-        ok();
-      })
-      .catch(err => {
-        console.error('Netlify Forms falló, pruebo FormSubmit:', err);
-        // 2) Respaldo: FormSubmit por email
-        const data = Object.fromEntries(formData);
-        delete data['form-name'];
-        delete data['ciudad_otra'];
-        data._subject = 'Nueva solicitud de entrevista de Velo';
-        data._template = 'table';
-        data._captcha = 'false';
-        return fetch('https://formsubmit.co/ajax/axel.abulafia@meetvelo.co', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(async res => {
-          let r = {};
-          try { r = await res.json(); } catch (_) {}
-          if (!res.ok || r.success === false || r.success === 'false') throw new Error(r.message || ('FormSubmit HTTP ' + res.status));
-          ok();
-        });
-      })
-      .catch(err => {
-        console.error('Error al enviar el formulario:', err);
+      .catch(() => {
         btn.disabled = false;
         btn.textContent = 'Error, reintentá';
-        const note = form.querySelector('.form-note');
-        if (note) note.textContent = 'No pudimos enviar tu solicitud. Escribinos a axel.abulafia@meetvelo.co.';
       });
     }
 
