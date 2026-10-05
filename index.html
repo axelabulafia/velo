@@ -492,7 +492,7 @@
         <p class="body-m" style="color:rgba(245,241,234,.75); max-width:44ch;">No es un formulario de registro. Es el primer paso de un proceso curado. Te contactamos en 24 horas.</p>
       </div>
 
-      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" onsubmit="event.preventDefault(); var b=this.querySelector('button[type=submit],.btn-submit'); if(b){b.textContent='Vista previa: el formulario no envía';}">
+      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto">
         <!-- Netlify Forms (respaldo si FormSubmit falla) -->
         <input type="hidden" name="form-name" value="solicitud-entrevista" />
         <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud de entrevista - Velo" />
@@ -564,6 +564,11 @@
           ciudadOtra.value = '';
         }
       });
+    }
+
+    const contactoForm = document.getElementById('contacto');
+    if (contactoForm) {
+      contactoForm.addEventListener('submit', handleSubmit);
     }
 
     function handleSubmit(e) {
