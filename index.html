@@ -299,6 +299,36 @@
   .press-also a:hover{border-bottom-color:var(--ink);}
   .press-also .more{margin-left:auto; color:var(--azure-deep);}
   @media (max-width: 700px){ .press-also .more{margin-left:0; width:100%;} }
+
+  /* ================= form: dos caminos (v3) ================= */
+  .contact-form .field{margin-bottom:18px;}
+  .contact-form label{display:block; font-size:16px; font-weight:600; color:var(--ink); margin-bottom:7px;}
+  .contact-form .optional{font-weight:400; color:#7A7189;}
+  .contact-form select, .contact-form input{font-size:17px; min-height:54px; margin-bottom:0;}
+  .contact-form input::placeholder{color:#9A93A6;}
+  .contact-form input:focus, .contact-form select:focus{box-shadow:0 0 0 3px rgba(72,64,88,.18);}
+  .contact-form .is-invalid{border-color:#B3261E !important;}
+  .field-hint{display:block; font-size:14.4px; color:#7A7189; margin-top:6px; line-height:1.45;}
+  .field-error{font-size:15.2px; color:#B3261E; font-weight:600; margin:4px 0 14px;}
+  .step-tag{display:block; font-size:13.6px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#7A7189; margin-bottom:6px;}
+  .intent{border:none; padding:0; margin:0;}
+  .intent-legend{font-family:'Magna','Fraunces',serif; font-size:24px; font-weight:600; color:var(--ink); margin-bottom:16px; padding:0;}
+  .intent-card{display:flex !important; align-items:flex-start; gap:14px; padding:18px; margin-bottom:12px !important; border:1.5px solid var(--mist); border-radius:var(--radius-m); cursor:pointer; transition:border-color .2s var(--ease), background .2s var(--ease); font-weight:400 !important;}
+  .intent-card:hover{border-color:var(--primary);}
+  .intent-card input{position:absolute; opacity:0; width:1px; height:1px; min-height:0;}
+  .intent-check{flex-shrink:0; width:24px; height:24px; border:2px solid var(--mist); border-radius:50%; margin-top:2px; position:relative; background:#fff;}
+  .intent-card.is-selected{border-color:var(--ink); background:#F5F1EA;}
+  .intent-card.is-selected .intent-check{border-color:var(--ink);}
+  .intent-card.is-selected .intent-check::after{content:''; position:absolute; inset:4px; border-radius:50%; background:var(--ink);}
+  .intent-card input:focus-visible ~ .intent-check{outline:2px solid var(--primary); outline-offset:3px;}
+  .intent-text{display:flex; flex-direction:column; gap:4px;}
+  .intent-title{font-size:18px; font-weight:700; color:var(--ink); line-height:1.3;}
+  .intent-desc{font-size:15.6px; color:#4A4358; line-height:1.5;}
+  .branch{margin-top:26px; padding-top:24px; border-top:1px solid var(--mist-soft);}
+  .branch-title{font-family:'Magna','Fraunces',serif; font-size:22px; font-weight:600; margin-bottom:16px; color:var(--ink);}
+  .branch-body{font-size:17px; line-height:1.6; color:#4A4358; margin-bottom:20px;}
+  .btn-submit{font-size:17px; min-height:56px;}
+  .btn-link{display:flex; align-items:center; justify-content:center; text-align:center;}
 </style>
 
 
@@ -489,10 +519,10 @@
       <div class="cta-close-inner">
         <span class="kicker" style="color:var(--silver);">Acceso</span>
         <h2 class="headline-l">La búsqueda empieza<br>con una conversación.</h2>
-        <p class="body-m" style="color:rgba(245,241,234,.75); max-width:44ch;">No es un formulario de registro. Es el primer paso de un proceso curado. Te contactamos en 24 horas.</p>
+        <p class="body-m" style="color:rgba(245,241,234,.75); max-width:44ch;">Contanos qué estás buscando y te mostramos el próximo paso. Toda la información es confidencial.</p>
       </div>
 
-      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto">
+      <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" novalidate>
         <!-- Netlify Forms (respaldo si FormSubmit falla) -->
         <input type="hidden" name="form-name" value="solicitud-entrevista" />
         <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud de entrevista - Velo" />
@@ -502,26 +532,84 @@
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_autoresponse" value="Gracias por tu interés en Velo. Recibimos tu solicitud y te contactamos en un plazo de 24 horas. Equipo Velo" />
         <!-- Honeypot anti-spam (debe quedar vacío) -->
-        <input type="text" name="_honey" style="display:none" />
-        <div class="form-row">
-          <input type="text" name="nombre" placeholder="Nombre" required />
-          <input type="text" name="apellido" placeholder="Apellido" required />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <!-- Paso 1: ¿qué querés hacer? -->
+        <fieldset class="intent">
+          <legend class="intent-legend"><span class="step-tag">Paso 1 de 2</span>¿Qué te gustaría hacer?</legend>
+          <label class="intent-card">
+            <input type="radio" name="tipo" value="cliente" />
+            <span class="intent-check" aria-hidden="true"></span>
+            <span class="intent-text">
+              <span class="intent-title">Quiero que Velo haga una búsqueda activa por mí</span>
+              <span class="intent-desc">Servicio personalizado pago. Coordinamos una entrevista para conocerte.</span>
+            </span>
+          </label>
+          <label class="intent-card">
+            <input type="radio" name="tipo" value="red" />
+            <span class="intent-check" aria-hidden="true"></span>
+            <span class="intent-text">
+              <span class="intent-title">Quiero sumarme a la Red Velo</span>
+              <span class="intent-desc">Sin costo. Completás un registro, te contactamos para validar tus datos y quedás en la base para futuras presentaciones.</span>
+            </span>
+          </label>
+          <p class="field-error" id="tipo-error" role="alert" hidden>Elegí una de las dos opciones para continuar.</p>
+        </fieldset>
+
+        <!-- Paso 2A: cliente (envía mail como hasta ahora) -->
+        <div class="branch" id="paso-cliente" hidden>
+          <p class="branch-title"><span class="step-tag">Paso 2 de 2</span>Tus datos de contacto</p>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-nombre">Nombre</label>
+              <input type="text" id="f-nombre" name="nombre" autocomplete="given-name" required />
+            </div>
+            <div class="field">
+              <label for="f-apellido">Apellido</label>
+              <input type="text" id="f-apellido" name="apellido" autocomplete="family-name" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" inputmode="email" required />
+          </div>
+          <div class="field">
+            <label for="f-tel">Teléfono / WhatsApp</label>
+            <input type="tel" id="f-tel" name="telefono" autocomplete="tel" inputmode="tel" placeholder="Ej: +54 9 11 1234 5678" required />
+            <span class="field-hint">Incluí el código de país. Te escribimos por WhatsApp para coordinar.</span>
+          </div>
+          <div class="field">
+            <label for="f-cargo">Cargo y empresa <span class="optional">(opcional)</span></label>
+            <input type="text" id="f-cargo" name="cargo-empresa" autocomplete="organization-title" />
+          </div>
+          <div class="field">
+            <label for="ciudad-select">Ciudad donde vivís</label>
+            <select name="ciudad" id="ciudad-select" required>
+              <option value="" disabled selected>Elegí una opción</option>
+              <option>Buenos Aires</option>
+              <option>Miami</option>
+              <option>Madrid</option>
+              <option>Ciudad de México</option>
+              <option>São Paulo</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div class="field" id="ciudad-otra-wrap" hidden>
+            <label for="ciudad-otra">¿En qué ciudad?</label>
+            <input type="text" name="ciudad_otra" id="ciudad-otra" autocomplete="address-level2" />
+          </div>
+          <p class="field-error" id="form-error" role="alert" hidden></p>
+          <button type="submit" class="btn-submit">Solicitar entrevista</button>
+          <p class="form-note" style="text-align:center;">Confidencialidad garantizada · Sin compromiso · Respuesta en 24 hs</p>
         </div>
-        <input type="email" name="email" placeholder="Email personal o profesional" required />
-        <input type="tel" name="telefono" placeholder="Número de teléfono" required />
-        <input type="text" name="cargo-empresa" placeholder="Cargo y empresa" />
-        <select name="ciudad" id="ciudad-select" required>
-          <option value="" disabled selected>Ciudad de residencia</option>
-          <option>Buenos Aires</option>
-          <option>Miami</option>
-          <option>Madrid</option>
-          <option>Ciudad de México</option>
-          <option>São Paulo</option>
-          <option>Otra</option>
-        </select>
-        <input type="text" name="ciudad_otra" id="ciudad-otra" placeholder="Escribí tu ciudad" style="display:none" />
-        <button type="submit" class="btn-submit">Solicitar entrevista</button>
-        <p class="form-note" style="text-align:center;">Confidencialidad garantizada · Sin compromisos · Respuesta en 24hs</p>
+
+        <!-- Paso 2B: Red Velo (redirige al formulario de registro) -->
+        <div class="branch" id="paso-red" hidden>
+          <p class="branch-title"><span class="step-tag">Paso 2 de 2</span>Registro en la Red Velo</p>
+          <p class="branch-body">El registro lleva unos minutos y se completa en un formulario aparte, que se abre en una pestaña nueva. Ahí te pedimos algunos datos y fotos para conocerte mejor.</p>
+          <a class="btn-submit btn-link" id="btn-red" href="https://docs.google.com/forms/d/1mp84DMvofymxfEg2imJbfmvXeiv9wMKlVejonjmzzQw/viewform" target="_blank" rel="noopener noreferrer">Ir al registro de la Red Velo</a>
+          <p class="form-note" style="text-align:center;">Sin costo · Sin exposición pública · Podés darte de baja cuando quieras</p>
+        </div>
       </form>
     </div>
   </div>
@@ -549,24 +637,85 @@
   </footer>
 
   <script>
-    // Mostrar/ocultar el campo "Escribí tu ciudad" según la selección
-    const ciudadSelect = document.getElementById('ciudad-select');
-    const ciudadOtra = document.getElementById('ciudad-otra');
-    if (ciudadSelect && ciudadOtra) {
-      ciudadSelect.addEventListener('change', () => {
-        if (ciudadSelect.value === 'Otra') {
-          ciudadOtra.style.display = 'block';
-          ciudadOtra.required = true;
-          ciudadOtra.focus();
-        } else {
-          ciudadOtra.style.display = 'none';
-          ciudadOtra.required = false;
-          ciudadOtra.value = '';
-        }
+    // ===== Paso 1: elegir camino (cliente pago / Red Velo) =====
+    const contactoForm = document.getElementById('contacto');
+    const pasoCliente = document.getElementById('paso-cliente');
+    const pasoRed = document.getElementById('paso-red');
+    const tipoError = document.getElementById('tipo-error');
+    const intentCards = document.querySelectorAll('.intent-card');
+
+    document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        intentCards.forEach(c => c.classList.toggle('is-selected', c.contains(radio) && radio.checked));
+        tipoError.hidden = true;
+        const esCliente = radio.value === 'cliente';
+        pasoCliente.hidden = !esCliente;
+        pasoRed.hidden = esCliente;
+        (esCliente ? pasoCliente : pasoRed).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'form_camino_elegido', camino: radio.value });
+      });
+    });
+
+    // Click al registro de la Red Velo (para medirlo)
+    const btnRed = document.getElementById('btn-red');
+    if (btnRed) {
+      btnRed.addEventListener('click', () => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'red_velo_registro_click' });
+        if (typeof fbq === 'function') fbq('trackCustom', 'RedVeloClick');
       });
     }
 
-    const contactoForm = document.getElementById('contacto');
+    // Mostrar/ocultar el campo "¿En qué ciudad?" según la selección
+    const ciudadSelect = document.getElementById('ciudad-select');
+    const ciudadOtra = document.getElementById('ciudad-otra');
+    const ciudadOtraWrap = document.getElementById('ciudad-otra-wrap');
+    if (ciudadSelect && ciudadOtra) {
+      ciudadSelect.addEventListener('change', () => {
+        const otra = ciudadSelect.value === 'Otra';
+        ciudadOtraWrap.hidden = !otra;
+        ciudadOtra.required = otra;
+        if (otra) ciudadOtra.focus(); else ciudadOtra.value = '';
+      });
+    }
+
+    // Validación con mensajes claros en castellano
+    const mensajes = {
+      nombre: 'Falta tu nombre.',
+      apellido: 'Falta tu apellido.',
+      email: 'Revisá tu email (por ejemplo: nombre@gmail.com).',
+      telefono: 'Falta tu teléfono, con código de país.',
+      ciudad: 'Elegí la ciudad donde vivís.',
+      ciudad_otra: 'Escribí en qué ciudad vivís.'
+    };
+    function validar(form) {
+      const errores = [];
+      let primero = null;
+      pasoCliente.querySelectorAll('input, select').forEach(el => {
+        el.classList.remove('is-invalid');
+        el.removeAttribute('aria-invalid');
+        if (el.required && !el.checkValidity()) {
+          el.classList.add('is-invalid');
+          el.setAttribute('aria-invalid', 'true');
+          errores.push(mensajes[el.name] || 'Revisá este dato.');
+          if (!primero) primero = el;
+        }
+      });
+      const box = document.getElementById('form-error');
+      if (errores.length) {
+        box.textContent = errores.join(' ');
+        box.hidden = false;
+        primero.focus();
+        return false;
+      }
+      box.hidden = true;
+      return true;
+    }
+    pasoCliente.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => { el.classList.remove('is-invalid'); el.removeAttribute('aria-invalid'); });
+    });
+
     if (contactoForm) {
       contactoForm.addEventListener('submit', handleSubmit);
     }
@@ -574,10 +723,16 @@
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
+      const tipo = form.querySelector('input[name="tipo"]:checked');
+      if (!tipo) { tipoError.hidden = false; return; }
+      if (tipo.value !== 'cliente') return; // la Red Velo no envía mail: va al Google Form
+      if (!validar(form)) return;
+
       const btn = form.querySelector('.btn-submit');
       btn.disabled = true;
       btn.textContent = 'Enviando…';
       const formData = new FormData(form);
+      formData.delete('tipo');
       // Si eligió "Otra", reemplazamos el valor de "ciudad" por lo que escribió
       if (formData.get('ciudad') === 'Otra' && formData.get('ciudad_otra')) {
         formData.set('ciudad', formData.get('ciudad_otra'));
@@ -640,7 +795,7 @@
       .catch(err => {
         console.error('No se pudo enviar el formulario:', err);
         btn.disabled = false;
-        btn.textContent = 'Error, reintentá';
+        btn.textContent = 'No se pudo enviar. Probá de nuevo';
       });
     }
 
