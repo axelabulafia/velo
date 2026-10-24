@@ -27,12 +27,10 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   <meta name="twitter:card" content="summary_large_image" />
   
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <link rel="preload" href="fonts/magna.woff2" as="font" type="font/woff2" crossorigin>
   <style>
+  @font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:100 900;src:url('fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
 
   @font-face {
     font-family: 'Magna';
@@ -211,7 +209,7 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
     display:flex; align-items:center; justify-content:center; font-family:'Magna','Fraunces'; font-size:26.4px; margin-bottom:18px;
   }
   .profile-name{font-family:'Magna','Fraunces'; font-size:24px; font-weight:600;}
-  .profile-role{font-size:15.6px; color:#7A7189; margin-top:4px; margin-bottom:18px;}
+  .profile-role{font-size:15.6px; color:#6E6580; margin-top:4px; margin-bottom:18px;}
   .profile-trait{display:flex; align-items:flex-start; gap:12px; padding:9px 0; font-size:17.6px;}
   .profile-trait-dot{width:6px; height:6px; border-radius:50%; background:var(--azure); margin-top:12px; flex-shrink:0;}
   .profile-quote{font-family:'Magna','Fraunces'; font-style:italic; font-size:21.6px; line-height:1.4; margin-top:18px; padding-top:18px; border-top:1px solid var(--mist-soft);}
@@ -258,7 +256,7 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
     border:none; background:var(--ink); color:var(--pearl); transition:background .2s var(--ease);
   }
   .btn-submit:hover{background:var(--primary);}
-  .form-note{font-size:15.2px; color:#7A7189; margin-top:16px;}
+  .form-note{font-size:15.2px; color:#6E6580; margin-top:16px;}
 
   /* ================= footer ================= */
   .foot-simple{padding:0; border-top:1px solid rgba(245,241,234,.4);}
@@ -328,7 +326,7 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   .portrait.mono{display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg, var(--primary-soft) 0%, var(--ink) 100%);}
   .portrait.mono span{font-family:'Magna','Fraunces',serif; font-size:44px; color:rgba(245,241,234,.85); letter-spacing:.04em;}
   .member-name{font-family:'Magna','Fraunces',serif; font-size:21.6px; font-weight:600; line-height:1.25; margin-top:4px;}
-  .member-role{font-size:15.2px; color:#7A7189; line-height:1.4;}
+  .member-role{font-size:15.2px; color:#6E6580; line-height:1.4;}
   .member-li{display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; color:var(--azure-deep); width:max-content;}
   .member-li svg{width:15px; height:15px;}
   .advisor{display:flex; gap:18px; align-items:center; margin-top:34px; padding-top:26px; border-top:1px solid var(--mist-soft); flex-wrap:wrap;}
@@ -344,9 +342,9 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   .press-row{display:grid; grid-template-columns:1fr; gap:4px; padding:20px 0; border-bottom:1px solid var(--mist-soft);}
   @media (min-width: 760px){ .press-row{grid-template-columns:110px 190px 1fr 24px; gap:22px; align-items:baseline;} }
   .press-row[hidden]{display:none;}
-  .press-row .d{font-size:14.4px; color:#7A7189; font-variant-numeric:tabular-nums;}
+  .press-row .d{font-size:14.4px; color:#6E6580; font-variant-numeric:tabular-nums;}
   .press-row .o{font-weight:700; font-size:15.6px;}
-  .press-row .o small{display:block; font-weight:500; color:#7A7189; font-size:13.6px;}
+  .press-row .o small{display:block; font-weight:500; color:#6E6580; font-size:13.6px;}
   .press-row .t{font-family:'Magna','Fraunces',serif; font-size:19.2px; line-height:1.4;}
   .press-row .ar{color:var(--azure-deep); font-weight:700;}
   .press-row:hover .t{text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;}

@@ -14,6 +14,7 @@ window.veloTags.forEach(function(fn){try{fn()}catch(e){}});window.veloTags={push
 window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
 <!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
 <title>Velo Matchmaking | Agencia de matchmaking premium para profesionales</title>
   <link rel="icon" type="image/png" sizes="256x256" href="img/favicon-dc7083d6.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon-ff0e39e5.png" />
@@ -25,12 +26,10 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   <meta name="twitter:card" content="summary_large_image" />
   
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <link rel="preload" href="fonts/magna.woff2" as="font" type="font/woff2" crossorigin>
   <style>
+  @font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:100 900;src:url('fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
 
   @font-face {
     font-family: 'Magna';
@@ -209,7 +208,7 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
     display:flex; align-items:center; justify-content:center; font-family:'Magna','Fraunces'; font-size:26.4px; margin-bottom:18px;
   }
   .profile-name{font-family:'Magna','Fraunces'; font-size:24px; font-weight:600;}
-  .profile-role{font-size:15.6px; color:#7A7189; margin-top:4px; margin-bottom:18px;}
+  .profile-role{font-size:15.6px; color:#6E6580; margin-top:4px; margin-bottom:18px;}
   .profile-trait{display:flex; align-items:flex-start; gap:12px; padding:9px 0; font-size:17.6px;}
   .profile-trait-dot{width:6px; height:6px; border-radius:50%; background:var(--azure); margin-top:12px; flex-shrink:0;}
   .profile-quote{font-family:'Magna','Fraunces'; font-style:italic; font-size:21.6px; line-height:1.4; margin-top:18px; padding-top:18px; border-top:1px solid var(--mist-soft);}
@@ -256,7 +255,7 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
     border:none; background:var(--ink); color:var(--pearl); transition:background .2s var(--ease);
   }
   .btn-submit:hover{background:var(--primary);}
-  .form-note{font-size:15.2px; color:#7A7189; margin-top:16px;}
+  .form-note{font-size:15.2px; color:#6E6580; margin-top:16px;}
 
   /* ================= footer ================= */
   .foot-simple{padding:0; border-top:1px solid rgba(245,241,234,.4);}
@@ -305,10 +304,10 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   .press-card:hover{border-color:var(--azure); transform:translateY(-2px);}
   .press-outlet{font-size:13.6px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--azure-deep);}
   .press-title{font-family:'Magna','Fraunces',serif; font-size:21.6px; line-height:1.35; font-weight:500;}
-  .press-meta{margin-top:auto; padding-top:8px; display:flex; justify-content:space-between; gap:12px; font-size:14.4px; color:#7A7189;}
+  .press-meta{margin-top:auto; padding-top:8px; display:flex; justify-content:space-between; gap:12px; font-size:14.4px; color:#6E6580;}
   .press-meta .go{color:var(--ink); font-weight:600;}
   .press-also{display:flex; flex-wrap:wrap; align-items:center; gap:10px 26px; margin-top:30px; padding-top:22px; border-top:1px solid var(--mist-soft); font-size:15.6px;}
-  .press-also .lbl{color:#7A7189; font-size:14.4px;}
+  .press-also .lbl{color:#6E6580; font-size:14.4px;}
   .press-also a{font-weight:600; border-bottom:1px solid transparent;}
   .press-also a:hover{border-bottom-color:var(--ink);}
   .press-also .more{margin-left:auto; color:var(--azure-deep);}
@@ -317,14 +316,14 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   /* ================= form: dos caminos (v3) ================= */
   .contact-form .field{margin-bottom:18px;}
   .contact-form label{display:block; font-size:16px; font-weight:600; color:var(--ink); margin-bottom:7px;}
-  .contact-form .optional{font-weight:400; color:#7A7189;}
+  .contact-form .optional{font-weight:400; color:#6E6580;}
   .contact-form select, .contact-form input{font-size:17px; min-height:54px; margin-bottom:0;}
   .contact-form input::placeholder{color:#9A93A6;}
   .contact-form input:focus, .contact-form select:focus{box-shadow:0 0 0 3px rgba(72,64,88,.18);}
   .contact-form .is-invalid{border-color:#B3261E !important;}
-  .field-hint{display:block; font-size:14.4px; color:#7A7189; margin-top:6px; line-height:1.45;}
+  .field-hint{display:block; font-size:14.4px; color:#6E6580; margin-top:6px; line-height:1.45;}
   .field-error{font-size:15.2px; color:#B3261E; font-weight:600; margin:4px 0 14px;}
-  .step-tag{display:block; font-size:13.6px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#7A7189; margin-bottom:6px;}
+  .step-tag{display:block; font-size:13.6px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#6E6580; margin-bottom:6px;}
   .intent{border:none; padding:0; margin:0;}
   .intent-legend{font-family:'Magna','Fraunces',serif; font-size:24px; font-weight:600; color:var(--ink); margin-bottom:16px; padding:0;}
   .intent-card{display:flex !important; align-items:flex-start; gap:14px; padding:18px; margin-bottom:12px !important; border:1.5px solid var(--mist); border-radius:var(--radius-m); cursor:pointer; transition:border-color .2s var(--ease), background .2s var(--ease); font-weight:400 !important;}
@@ -404,7 +403,6 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
  ]
 }
   </script>
-  <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -535,12 +533,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="glass quote-card" style="border-color:var(--mist-soft); background:#fff;">
           <span class="quote-mark" style="color:var(--azure);">"</span>
           <p class="quote-text" style="color:var(--ink);">Las apps me dan vergüenza a esta altura. Pagaría bien por algo que funcione de verdad.</p>
-          <p class="quote-author" style="color:#7A7189;">Profesional · 57 años · Buenos Aires</p>
+          <p class="quote-author" style="color:#6E6580;">Profesional · 57 años · Buenos Aires</p>
         </div>
         <div class="glass quote-card" style="border-color:var(--mist-soft); background:#fff;">
           <span class="quote-mark" style="color:var(--azure);">"</span>
           <p class="quote-text" style="color:var(--ink);">No tengo tiempo. Si alguien filtrara por mí y me presentara cuatro personas reales en un mes, lo contrato sin pensarlo.</p>
-          <p class="quote-author" style="color:#7A7189;">Director Financiero · 54 años · Miami</p>
+          <p class="quote-author" style="color:#6E6580;">Director Financiero · 54 años · Miami</p>
         </div>
       </div>
     </div>
