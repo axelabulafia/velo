@@ -604,7 +604,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <form class="contact-form form-panel" name="solicitud-entrevista" id="contacto" novalidate>
         <!-- Netlify Forms (respaldo si FormSubmit falla) -->
         <input type="hidden" name="form-name" value="solicitud-entrevista" />
-        <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud de entrevista - Velo" />
+        <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud de entrevista de Velo" />
         <!-- Configuración FormSubmit -->
         <input type="hidden" name="_subject" value="Nueva solicitud de entrevista de Velo" />
         <input type="hidden" name="_template" value="table" />
@@ -845,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const params = new URLSearchParams();
         params.append('form-name', 'solicitud-entrevista');
         campos.forEach(c => params.append(c, formData.get(c) || ''));
-        params.append('subject', 'Nueva solicitud: ' + (formData.get('nombre') || '') + ' ' + (formData.get('apellido') || '') + ' (' + (formData.get('ciudad') || '') + ')');
+        params.append('subject', 'Nueva solicitud de entrevista de Velo');
         return fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -856,6 +856,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       };
 
       enviarFormSubmit()
+      .catch(err => {
+        // Reintento único de FormSubmit antes de pasar al respaldo
+        console.warn('FormSubmit falló, reintentando:', err);
+        return new Promise(r => setTimeout(r, 1500)).then(enviarFormSubmit);
+      })
       .catch(err => {
         console.warn('FormSubmit falló, envío por Netlify:', err);
         return enviarNetlify();
