@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Los 10 de la Red: cómo participar, fechas y bases y condiciones. Solo para la Red Velo en Argentina y Uruguay.">
+<meta name="robots" content="noindex">
+<title>Los 10 de la Red</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: banda violeta de marca arriba, columna de lectura angosta, bases numeradas como documento */
+:root{
+  --ink:#16162c; --plum:#372b4d; --plum-2:#4a3d63; --gold:#b08d57; --gold-soft:#e7dcc6;
+  --bg:#f7f3ec; --surface:#ffffff; --muted:#6b6478; --line:#e2d9c8; --on-plum:#f5f1ea;
+  --display:"Bodoni Moda",Didot,"Times New Roman",serif;
+  --body:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#efeaf5; --plum:#2a2140; --plum-2:#3a2f52; --gold:#d2b07a; --gold-soft:#4a3f2f;
+  --bg:#17141f; --surface:#211c2c; --muted:#b2aac0; --line:#3a3348; --on-plum:#f5f1ea; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#efeaf5; --plum:#2a2140; --plum-2:#3a2f52; --gold:#d2b07a; --gold-soft:#4a3f2f;
+  --bg:#17141f; --surface:#211c2c; --muted:#b2aac0; --line:#3a3348; --on-plum:#f5f1ea; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.hero{background:var(--plum);color:var(--on-plum);position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;right:-180px;top:-220px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 60px rgba(255,255,255,.03)}
+.hero .wrap{padding-block:28px 56px;position:relative;z-index:1}
+.brand{font-family:var(--display);font-size:22px;letter-spacing:.04em;opacity:.9}
+.kicker{margin-top:44px;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft)}
+:root[data-theme="dark"] .kicker{color:var(--gold)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,9vw,72px);line-height:1.02;margin:10px 0 14px;text-wrap:balance}
+.sub{font-family:var(--display);font-style:italic;font-size:clamp(20px,3.6vw,26px);margin:0 0 20px;color:var(--gold-soft)}
+.lead{max-width:60ch;margin:0;color:var(--on-plum);opacity:.92}
+.deadline{display:inline-flex;gap:10px;align-items:baseline;margin-top:26px;padding:10px 16px;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:14px}
+.deadline b{font-weight:600}
+main .wrap{padding-block:48px 24px;display:grid;gap:52px}
+h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15;margin:0 0 18px;text-wrap:balance}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 6px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.step .n{font-family:var(--display);font-size:28px;color:var(--gold);line-height:1}
+.step h3{font-size:16px;margin:10px 0 6px}
+.step p{margin:0;font-size:14.5px;color:var(--muted)}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checklist li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.checklist li::before{content:"";width:12px;height:12px;margin-top:7px;border:1.5px solid var(--gold);transform:rotate(45deg)}
+.note{background:var(--surface);border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 10px 10px 0;font-size:15px;color:var(--muted)}
+.note b{color:var(--ink)}
+table.dates{width:100%;border-collapse:collapse;font-size:15px}
+table.dates td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.dates td:first-child{width:38%;font-weight:600;padding-right:14px;font-variant-numeric:tabular-nums}
+ol.bases{counter-reset:b;list-style:none;padding:0;margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
+ol.bases>li{counter-increment:b;display:grid;grid-template-columns:44px 1fr;gap:8px;padding:16px 0;border-bottom:1px solid var(--line)}
+ol.bases>li::before{content:counter(b,decimal-leading-zero);font-family:var(--display);font-size:20px;color:var(--gold);line-height:1.3}
+ol.bases b{font-weight:600}
+ol.bases p{margin:0}
+ol.bases ul{margin:10px 0 0;padding-left:18px;display:grid;gap:6px;color:var(--ink)}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:2px}
+.tag.req{background:var(--plum);color:var(--on-plum)}
+.tag.opt{border:1px solid var(--line);color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:24px}
+footer .wrap{padding-block:24px 36px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:13px;color:var(--muted)}
+footer a{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+body{margin:0}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">velo</div>
+    <p class="kicker">Solo para la Red Velo</p>
+    <h1>Los 10 de la Red</h1>
+    <p class="sub">Perfil completo, cita posible.</p>
+    <p class="lead">Vamos a elegir a 10 personas de la Red Velo para presentarles, sin costo y con el acompañamiento de un matchmaker, a la persona más compatible de toda la Red. No es un sorteo: la IA propone y nuestros matchmakers deciden, y cuanto más completo esté tu perfil, más chances tenés.</p>
+    <div class="deadline"><span>Cierre</span><b>Martes 24 de noviembre, 18 h</b></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section aria-labelledby="como">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2 id="como">Tres pasos, sin anotarte</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Completás tu perfil</h3><p>Respondés los datos que te faltan, sumás fotos actuales y, si no la tenés, hacés tu entrevista.</p></div>
+        <div class="step"><div class="n">2</div><h3>Elegimos a los 10</h3><p>Un modelo de IA arma un ranking y los matchmakers eligen a 5 personas y a la persona más compatible para cada una.</p></div>
+        <div class="step"><div class="n">3</div><h3>Te presentamos</h3><p>Una presentación sin costo, con doble consentimiento y el mismo acompañamiento que un cliente.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="que">
+      <p class="eyebrow">Para participar</p>
+      <h2 id="que">Qué tenés que completar</h2>
+      <ul class="checklist">
+        <li><span><b>Los datos que faltan en tu ficha.</b> Te los mandamos en el mail del newsletter: religión, formación, preferencias físicas, hijos, edad buscada y todo lo que quede pendiente. Respondé ese mismo mail.</span></li>
+        <li><span><b>Fotos actuales, solo si te las pedimos en el mail del newsletter.</b> De una a cinco, de frente o de medio cuerpo, con al menos una de frente y sin anteojos. Mandalas respondiendo el mismo mail.</span></li>
+        <li><span><b>Tu entrevista, si todavía no la hiciste.</b> Pedila respondiendo el mail o escribile al matchmaker que te contactó.</span></li>
+        <li><span><b>Confirmar datos.</b> Si completamos algo a partir de tu entrevista, te pedimos que lo valides.</span></li>
+      </ul>
+      <p class="note" style="margin-top:18px"><b>Revisá el correo no deseado.</b> Si el matchmaker te escribió por mail, puede que su mensaje haya caído ahí.</p>
+    </section>
+
+    <section aria-labelledby="fechas">
+      <p class="eyebrow">Calendario</p>
+      <h2 id="fechas">Fechas</h2>
+      <table class="dates">
+        <tr><td>Hasta el 24/11, 18 h</td><td>Completás tu perfil.</td></tr>
+        <tr><td>Hasta el 30/11</td><td>Avisamos en privado a los 10 elegidos.</td></tr>
+        <tr><td>Diciembre</td><td>Presentaciones y primeras citas.</td></tr>
+      </table>
+    </section>
+
+    <section aria-labelledby="bases">
+      <p class="eyebrow">Versión corta</p>
+      <h2 id="bases">Bases y condiciones</h2>
+      <ol class="bases">
+        <li><p><b>Quiénes participan:</b> solo miembros de la Red Velo que viven en Argentina o Uruguay, de cualquier edad.</p></li>
+        <li><p><b>Sin costo:</b> participar es gratis y no requiere ninguna compra.</p></li>
+        <li><p><b>Cómo participar:</b> completar el perfil hasta el martes 24 de noviembre a las 18 h. Los datos que faltan se responden directo al mail del newsletter, y las fotos actuales, solo si te las pedimos en ese mail, se envían por la misma vía. Quien no tenga entrevista la pide respondiendo ese mail o al matchmaker que lo contactó.</p></li>
+        <li><p><b>Selección:</b> no es un sorteo. Un modelo de IA arma un ranking por completitud y compatibilidad con la Red, y los matchmakers deciden. Se eligen 5 personas y, para cada una, la persona más compatible de la Red. La decisión del equipo es final.</p></li>
+        <li><p><b>Premio:</b> una presentación sin costo, con el acompañamiento de un matchmaker. Solo avanzamos con el doble consentimiento. Si la persona compatible no acepta, pasamos a la siguiente. El premio es personal y no se canjea por dinero.</p></li>
+        <li><div><p><b>Compromisos de los 10 elegidos:</b></p>
+          <ul>
+            <li>Feedback <span class="tag req">Requerido</span>: una encuesta corta después de la cita y una charla de 15 minutos al cierre.</li>
+            <li>Perfil al día: fotos actuales y respuesta al matchmaker dentro de las 48 horas.</li>
+            <li>Testimonio <span class="tag opt">Opcional</span>: unas líneas sobre la experiencia vivida, con o sin nombre.</li>
+            <li>Nota o caso de éxito <span class="tag opt">Opcional</span>: si hay match, participar de buena fe, sin nombre o solo con el nombre de pila.</li>
+          </ul></div></li>
+        <li><p><b>Privacidad:</b> usamos los datos solo para buscar compatibilidad dentro de Velo, según los términos de la Red. No publicamos los nombres de los elegidos.</p></li>
+        <li><p><b>Resultados:</b> avisamos en privado a los 10 elegidos hasta el 30 de noviembre.</p></li>
+        <li><p><b>Cambios:</b> Velo puede ajustar fechas o condiciones avisando por mail a los participantes.</p></li>
+      </ol>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Velo · La búsqueda más importante, en las mejores manos</span>
+    <a href="https://meetvelo.co" target="_blank" rel="noopener">meetvelo.co</a>
+  </div>
+</footer>
+</body>
+</html>
