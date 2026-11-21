@@ -318,8 +318,9 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   .value{padding:28px 24px; border:1px solid rgba(245,241,234,.16); display:flex; flex-direction:column; gap:12px;}
   .value h3{font-size:24px; font-weight:600;}
   .value p{color:rgba(245,241,234,.72); font-size:16.8px; line-height:1.6;}
-  .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:36px;}
-  @media (min-width: 900px){ .team-grid{grid-template-columns:repeat(3,1fr); gap:24px; max-width:708px; margin-left:auto; margin-right:auto;} }
+  .team-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-top:36px;}
+  .team-grid .member{flex:0 0 calc((100% - 18px) / 2); min-width:0;}
+  @media (min-width: 900px){ .team-grid{gap:24px; max-width:952px; margin-left:auto; margin-right:auto;} .team-grid .member{flex-basis:calc((100% - 72px) / 4);} }
   .member{display:flex; flex-direction:column; gap:10px;}
   .portrait{aspect-ratio:4/5; max-width:100%; width:100%; border-radius:var(--radius-m); overflow:hidden; background:var(--mist);}
   .portrait img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.85);}
@@ -575,6 +576,12 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
           <p class="member-name">Mariana Dolhare (Mimi)</p>
           <p class="member-role">Senior Matchmaker</p>
           <a class="member-li" href="https://www.linkedin.com/in/mimi-dolhare-0496b0213/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
+        </div>
+        <div class="member">
+          <div class="portrait"><img src="img/equipo-retrato-997d03da.jpg" alt="Julieta Wajnfeld"></div>
+          <p class="member-name">Julieta Wajnfeld</p>
+          <p class="member-role">Senior Matchmaker</p>
+          <a class="member-li" href="https://www.linkedin.com/in/julietawajnfeld/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
         </div>
         <div class="member">
           <div class="portrait"><img src="img/equipo-retrato-46baca71.jpg" alt="Karina Vilchez"></div>
