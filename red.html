@@ -341,6 +341,24 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
   <!-- ===== /Google Analytics 4 ===== -->
   <link rel="canonical" href="https://meetvelo.co/red" />
   <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
+
+<style id="mobile-ux">
+/* Ajustes solo para celular (21/11/2026): pie, áreas táctiles y botón fijo */
+@media (max-width: 760px){
+  .foot-simple .foot-row{flex-direction:column; align-items:center; text-align:center; gap:10px; padding-top:28px; padding-bottom:28px;}
+  .foot-simple .foot-copy{order:3; font-size:13px;}
+  .foot-simple .footer-links{order:1; flex-wrap:wrap; justify-content:center; gap:0 20px; width:100%;}
+  .foot-simple .footer-links a{display:inline-block; padding:12px 2px;}
+  .foot-simple .social-row{order:2;}
+  .foot-simple .social-row a{display:inline-flex; align-items:center; justify-content:center; min-width:44px; min-height:44px;}
+  .nav-links a:not(.nav-cta){padding:12px 4px; margin:-12px -4px;}
+  .member-li{display:inline-flex; align-items:center; min-height:44px;}
+  .press-also a{display:inline-block; padding:10px 0;}
+  .sticky-cta{position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); z-index:60; display:flex; align-items:center; justify-content:center; min-height:52px; border-radius:var(--radius-s,10px); background:var(--pearl,#F5F1EA); color:var(--ink,#2E2540); font-weight:600; font-size:16px; box-shadow:0 8px 24px rgba(20,14,32,.28); transform:translateY(140%); opacity:0; transition:transform .3s ease, opacity .3s ease; text-decoration:none;}
+  .sticky-cta.show{transform:none; opacity:1;}
+}
+@media (min-width: 761px){ .sticky-cta{display:none !important;} }
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -516,5 +534,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       observer.observe(el);
     });
   </script>
+<a class="sticky-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfb2lpi9Y_XooppUuHvKx0ivJrrPbB-uIT2sXXgaSglE78saw/viewform" target="_blank" rel="noopener" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'red_velo_click_formulario',form_name:'red-velo-sticky'});">Sumarme a la red</a>
+
+<script>
+(function(){
+  var b=document.querySelector('.sticky-cta'); if(!b) return;
+  var hide=['#sumate','footer'].map(function(s){return document.querySelector(s)}).filter(Boolean);
+  var inView=new Set();
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?inView.add(e.target):inView.delete(e.target)}); upd();},{threshold:0});
+  hide.forEach(function(el){io.observe(el)});
+  function upd(){ b.classList.toggle('show', window.scrollY>window.innerHeight*0.9 && inView.size===0); }
+  window.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+</script>
 </body>
 </html>
