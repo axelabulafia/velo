@@ -302,6 +302,9 @@ window.addEventListener('load',function(){setTimeout(run,3500)});})();</script>
     transition:border-color .2s var(--ease), transform .2s var(--ease);
   }
   .press-card:hover{border-color:var(--azure); transform:translateY(-2px);}
+  .press-card.is-off{display:none;}
+  .press-card.press-rot{transition:opacity .45s ease;}
+  .press-card.is-fading{opacity:0;}
   .press-outlet{font-size:13.6px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--azure-deep);}
   .press-title{font-family:'Magna','Fraunces',serif; font-size:21.6px; line-height:1.35; font-weight:500;}
   .press-meta{margin-top:auto; padding-top:8px; display:flex; justify-content:space-between; gap:12px; font-size:14.4px; color:#6E6580;}
@@ -567,26 +570,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <hr class="hr" style="margin-bottom:56px;">
       <span class="kicker">Velo en los medios</span>
       <h2 class="headline-l" style="margin-top:14px;">La prensa ya habla<br>de otra forma de buscar pareja.</h2>
-      <div class="press-grid">
-        <a class="press-card" href="https://www.forbesargentina.com/lifestyle/matchmaking-premium-tendencia-global-impulsada-dating-burnout-desembarca-argentina-n101991" target="_blank" rel="noopener noreferrer">
+      <div class="press-grid" id="press-grid">
+        <a class="press-card press-fixed" href="https://www.clarin.com/relaciones/lovehunters-reclutadores-amor-funciona-servicio-matchmaking-busca-pareja-ceos-ejecutivos-logicas-corporativas-arranca-mil-dolares_0_FLnjMuzZZf.html" target="_blank" rel="noopener noreferrer">
+          <span class="press-outlet">Clarín</span>
+          <p class="press-title">Lovehunters, reclutadores del amor: cómo funciona el matchmaking que les busca pareja a CEOs y ejecutivos</p>
+          <span class="press-meta"><span>25 nov · 2026</span><span class="go">Leer nota →</span></span>
+        </a>
+        <a class="press-card press-rot" href="https://www.forbesargentina.com/lifestyle/matchmaking-premium-tendencia-global-impulsada-dating-burnout-desembarca-argentina-n101991" target="_blank" rel="noopener noreferrer">
           <span class="press-outlet">Forbes</span>
           <p class="press-title">Matchmaking premium: la tendencia global impulsada por el “dating burnout” que desembarca en Argentina</p>
           <span class="press-meta"><span>7 nov · 2026</span><span class="go">Leer nota →</span></span>
         </a>
-        <a class="press-card" href="https://www.lanacion.com.ar/economia/negocios/matchmaking-en-la-argentina-como-funciona-velo-la-startup-que-conecta-personas-sin-apps-nid19092026/" target="_blank" rel="noopener noreferrer">
+        <a class="press-card press-rot" href="https://www.elobservador.com.uy/cafe-y-negocios/un-headhunter-pareja-us-2000-como-funciona-el-emprendimiento-busqueda-personalizada-relaciones-que-ya-suma-clientes-uruguay-n6060969" target="_blank" rel="noopener noreferrer">
+          <span class="press-outlet">El Observador · Uruguay</span>
+          <p class="press-title">Un “hearthunter” para encontrar la pareja ideal: cómo funciona la plataforma de búsqueda personalizada de relaciones que ya suma clientes en Uruguay</p>
+          <span class="press-meta"><span>20 oct · 2026</span><span class="go">Leer nota →</span></span>
+        </a>
+        <a class="press-card press-rot is-off" href="https://www.lanacion.com.ar/economia/negocios/matchmaking-en-la-argentina-como-funciona-velo-la-startup-que-conecta-personas-sin-apps-nid19092026/" target="_blank" rel="noopener noreferrer">
           <span class="press-outlet">La Nación</span>
           <p class="press-title">Matchmaking en la Argentina: cómo funciona Velo, la startup que conecta personas sin apps</p>
           <span class="press-meta"><span>19 sep · 2026</span><span class="go">Leer nota →</span></span>
         </a>
-        <a class="press-card" href="https://www.infobae.com/sociedad/2026/09/18/una-serie-de-television-una-consulta-repetida-y-un-nicho-a-explorar-la-historia-del-primer-servicio-boutique-de-busqueda-de-pareja/" target="_blank" rel="noopener noreferrer">
+        <a class="press-card press-rot is-off" href="https://www.infobae.com/sociedad/2026/09/18/una-serie-de-television-una-consulta-repetida-y-un-nicho-a-explorar-la-historia-del-primer-servicio-boutique-de-busqueda-de-pareja/" target="_blank" rel="noopener noreferrer">
           <span class="press-outlet">Infobae</span>
           <p class="press-title">Una serie de televisión, una consulta repetida y un nicho a explorar: la historia del primer servicio boutique de búsqueda de pareja</p>
           <span class="press-meta"><span>18 sep · 2026</span><span class="go">Leer nota →</span></span>
         </a>
       </div>
+      <script>
+      (function(){
+        var g=document.getElementById('press-grid'); if(!g) return;
+        var rot=[].slice.call(g.querySelectorAll('.press-rot'));
+        if(rot.length<3 || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+        var start=0, slots=2;
+        function show(){
+          rot.forEach(function(c,i){
+            var on=false; for(var k=0;k<slots;k++){ if(i===(start+k)%rot.length) on=true; }
+            c.classList.toggle('is-off',!on);
+          });
+        }
+        setInterval(function(){
+          rot.forEach(function(c){ if(!c.classList.contains('is-off')) c.classList.add('is-fading'); });
+          setTimeout(function(){
+            start=(start+slots)%rot.length; show();
+            rot.forEach(function(c){ c.classList.remove('is-fading'); });
+          },450);
+        },7000);
+      })();
+      </script>
       <div class="press-also">
         <span class="lbl">También en</span>
-        <a href="https://www.elobservador.com.uy/cafe-y-negocios/un-headhunter-pareja-us-2000-como-funciona-el-emprendimiento-busqueda-personalizada-relaciones-que-ya-suma-clientes-uruguay-n6060969" target="_blank" rel="noopener noreferrer">El Observador</a>
         <a href="https://www.elpais.com.uy/el-empresario/de-liderar-globant-en-ee-uu-a-crear-una-startup-para-personas-cansadas-de-las-apps-de-citas" target="_blank" rel="noopener noreferrer">El País</a>
         <a href="https://www.cronista.com/infotechnology/cultura-geek/ni-tinder-ni-bumble-la-nueva-forma-en-que-los-profesionales-buscan-pareja/" target="_blank" rel="noopener noreferrer">El Cronista</a>
         <a href="https://tn.com.ar/sociedad/2026/07/25/tenes-a-alguien-para-presentarme-dos-primas-le-hicieron-esa-pregunta-y-a-el-se-le-ocurrio-como-ayudarlas-a-encontrar-pareja/" target="_blank" rel="noopener noreferrer">TN</a>
